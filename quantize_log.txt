@@ -1,0 +1,20 @@
+N/A% (0 of 10) |                                                                        | Elapsed Time: 0:00:00 ETA:  --:--:--
+
+100% (10 of 10) |#######################################################################| Elapsed Time: 0:26:12 Time:  0:26:12
+INFO: Calibration Done.
+INFO: Generating Deploy Model...
+[DEPLOY WARNING] Batchnorm Node (batch_normalization_13/FusedBatchNormV3/add + batch_normalization_13/FusedBatchNormV3/mul) is not folded. It will be converted to a Scale node (batch_normalization_13/FusedBatchNormV3/add) to deploy on DPU. This may cause accuracy decrease and error for DPU compiler.
+[DEPLOY WARNING] Batchnorm Node (batch_normalization_16/FusedBatchNormV3/add + batch_normalization_16/FusedBatchNormV3/mul) is not folded. It will be converted to a Scale node (batch_normalization_16/FusedBatchNormV3/add) to deploy on DPU. This may cause accuracy decrease and error for DPU compiler.
+[DEPLOY WARNING] Batchnorm Node (batch_normalization_19/FusedBatchNormV3/add + batch_normalization_19/FusedBatchNormV3/mul) is not folded. It will be converted to a Scale node (batch_normalization_19/FusedBatchNormV3/add) to deploy on DPU. This may cause accuracy decrease and error for DPU compiler.
+[DEPLOY WARNING] Batchnorm Node (batch_normalization_22/FusedBatchNormV3/add + batch_normalization_22/FusedBatchNormV3/mul) is not folded. It will be converted to a Scale node (batch_normalization_22/FusedBatchNormV3/add) to deploy on DPU. This may cause accuracy decrease and error for DPU compiler.
+[DEPLOY WARNING] Node conv2d_8/Max(Type: Max) is not quantized and cannot be deployed to DPU,because it has unquantized input node: conv2d_8/Max/reduction_indices. Please deploy it on CPU.
+[DEPLOY WARNING] Node conv2d_8/sub(Type: Sub) is not quantized and cannot be deployed to DPU,because it has unquantized input node: conv2d_8/Max. Please deploy it on CPU.
+[DEPLOY WARNING] Node conv2d_8/Exp(Type: Exp) is not quantized and cannot be deployed to DPU,because it has unquantized input node: conv2d_8/sub. Please deploy it on CPU.
+[DEPLOY WARNING] Node conv2d_8/Sum(Type: Sum) is not quantized and cannot be deployed to DPU,because it has unquantized input node: conv2d_8/Exp. Please deploy it on CPU.
+[DEPLOY WARNING] Node conv2d_8/truediv(Type: RealDiv) is not quantized and cannot be deployed to DPU,because it has unquantized input node: conv2d_8/Exp. Please deploy it on CPU.
+INFO: Deploy Model Generated.
+********************* Quantization Summary *********************      
+INFO: Output:       
+  quantize_eval_model: ./quantize_result/quantize_eval_model.pb       
+  deploy_model: ./quantize_result/deploy_model.pb
+

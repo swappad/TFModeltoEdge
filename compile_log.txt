@@ -1,0 +1,30 @@
+(vitis-ai-tensorflow) krueger@krueger:/workspace$ ./compile.sh 
+**************************************************
+* VITIS_AI Compilation - Xilinx Inc.
+**************************************************
+[VAI_C][Warning] Operator [ name: conv2d_transpose/strided_slice_1/stack, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose/strided_slice_1/stack_1, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose/strided_slice_1/stack_2, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose/strided_slice_2/stack, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose/strided_slice_2/stack_1, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose/strided_slice_2/stack_2, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_1/strided_slice_1/stack, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_1/strided_slice_1/stack_1, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_1/strided_slice_1/stack_2, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_1/strided_slice_2/stack, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_1/strided_slice_2/stack_1, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_1/strided_slice_2/stack_2, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_2/strided_slice_1/stack, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_2/strided_slice_1/stack_1, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_2/strided_slice_1/stack_2, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_2/strided_slice_2/stack, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_2/strided_slice_2/stack_1, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_2/strided_slice_2/stack_2, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_3/strided_slice_1/stack, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_3/strided_slice_1/stack_1, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_3/strided_slice_1/stack_2, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_3/strided_slice_2/stack, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_3/strided_slice_2/stack_1, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Warning] Operator [ name: conv2d_transpose_3/strided_slice_2/stack_2, op: Const] will be deleted by dnnc because it's not parent or child of any other operator.
+[VAI_C][Error] 'Const' op should be fused with current op [Max] by DECENT.
+
