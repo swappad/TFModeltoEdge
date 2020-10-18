@@ -10,5 +10,9 @@ This repo contain all files for compilation and deployment.
 |h5topb.py | loads weights (hdf5 format) and freezes the model graph | ! run inside VITIS AI docker to meet the required TF version 1.15 |
 |quantize.sh | script to quantize the frozen model| run inside docker |
 |unet.py | Unet model from [dhkim0225](https://github.com/dhkim0225/keras-image-segmentation.git) |  insert `model.trainable=False` before `model.compile`
+|Ultra96.json | from DPU-PYNQ repo |- |
+|Ultra96.dcf | generated from Ultra96 using `dlet` | inside docker |
+|compile.sh | script for compilation | inside docker |
+|dump.sh| dump constants for each layer after quantization | use unknown |
 
 
