@@ -7,7 +7,7 @@ from tensorflow.keras.preprocessing.image import img_to_array
 
 calib_img_path = "./data_subset"
 
-calib_batch_size = 10
+calib_batch_size = 1
 
 def calib_input(iter):
     

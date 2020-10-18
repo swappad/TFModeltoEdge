@@ -1,0 +1,5 @@
+{
+    "target"   : "dpuv2",
+    "dcf"      : "Ultra96.dcf",
+    "cpu_arch" : "arm64"
+}
