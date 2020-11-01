@@ -1,5 +1,5 @@
 {
-    "target"   : "dpuv2",
-    "dcf"      : "Ultra96.dcf",
+    "target"   : "DPUCZDX8G",
+    "dcf"      : "dpu.dcf",
     "cpu_arch" : "arm64"
 }
