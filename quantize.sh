@@ -1,6 +1,6 @@
-FROZEN_GRAPH=./trained_models/1210_unet.pb
+FROZEN_GRAPH=./trained_models/1210_unet_epoch_21/frozen_graph.pb
 INPUT_NODES="input_1"
-OUTPUT_NODES="conv2d_8/truediv"
+OUTPUT_NODES="conv2d_8/Conv2D"
 OUTPUT_DIR="./quantize_result"
 
 vai_q_tensorflow quantize \
