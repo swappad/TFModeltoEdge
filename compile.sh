@@ -6,5 +6,5 @@ vai_c_tensorflow \
 	--arch ./Ultra96.json \
 	--output_dir ${OUTPUT_DIR} \
 	--net_name ${KERNEL_NAME} \
-	--options "{'mode':'debug','dump':'fused_graph_info'}"
+	--options "{'mode':'normal','dump':'fused_graph_info','save_kernel':'$OUTPUT_DIR'}"
 
