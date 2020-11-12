@@ -1,12 +1,9 @@
 import argparse
 import cv2
 import os
-# import tensorflow as tf
-import tensorflow.compat.v1 as tf
-tf.disable_v2_behavior()
+import tensorflow as tf
 from unet import unet
-from tensorflow import keras
-#from tensorflow.python.client import session
+import keras
 
 
 # tf.compat.v1.enable_eager_execution(config=None, device_policy=None, execution_mode=None)
@@ -60,18 +57,19 @@ with keras.backend.get_session() as sess:
 
     # save frozen subset graph for acceleration
     output_graph = os.path.splitext(args.weights)[0] #+ ".pb"
-    output_names= ['conv2d_8/Conv2D']
+    output_names= ['conv2d_9/BiasAdd']
 
     input_names=[out.op.name for out in model.inputs]
-    output_names=[out.op.name for out in model.outputs]
+    #output_names=[out.op.name for out in model.outputs]
     print('input  node is{}'.format(input_names))
     print('output node is{}'.format(output_names))
 
 
-#    frozen_graph = freeze_session(session=sess, output_names=output_names)
     saver = tf.train.Saver()
 #    saver = tf.compat.v1.train.Saver()
     graph_def = sess.graph.as_graph_def()
+    
+    #frozen_graph = freeze_session(session=sess, output_names=output_names)
 
     save_path = saver.save(sess, os.path.join(output_graph, "float_model.ckpt"))
 
