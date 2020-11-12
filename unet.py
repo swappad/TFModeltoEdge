@@ -1,8 +1,8 @@
-from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Input, concatenate, Conv2D, MaxPooling2D, Conv2DTranspose, Activation
-from tensorflow.keras.layers import BatchNormalization
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras import backend as K
+from keras.models import Model
+from keras.layers import Input, concatenate, Conv2D, MaxPooling2D, Conv2DTranspose, Activation
+from keras.layers import BatchNormalization
+from keras.optimizers import Adam
+from keras import backend as K
 
 
 def dice_coef(y_true, y_pred):
@@ -144,10 +144,8 @@ def unet(num_classes, input_shape, lr_init, lr_decay, vgg_weight_path=None):
     x = Conv2D(num_classes, (3, 3), activation='softmax', padding='same')(x)
 
     model = Model(img_input, x)
-    model.trainable=False
+#    model.trainable=False
     model.compile(optimizer=Adam(lr=lr_init, decay=lr_decay),
                   loss='categorical_crossentropy',
                   metrics=[dice_coef])
     return model
-
-
