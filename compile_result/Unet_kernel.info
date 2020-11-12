@@ -1,0 +1,31 @@
+
+Kernel topology "Unet_kernel_graph.jpg" for network "Unet"
+kernel list info for network "Unet"
+                               Kernel ID : Name
+                                       0 : Unet
+
+                             Kernel Name : Unet
+--------------------------------------------------------------------------------
+                             Kernel Type : DPUKernel
+                               Code Size : 2.61MB
+                              Param Size : 24.66MB
+                           Workload MACs : 204294.06MOPS
+                         IO Memory Space : 34.38MB
+                              Mean Value : 0, 0, 0, 
+                      Total Tensor Count : 39
+                Boundary Input Tensor(s)   (H*W*C)
+                            input_1:0(0) : 256*512*3
+
+               Boundary Output Tensor(s)   (H*W*C)
+               conv2d_9_convolution:0(0) : 256*512*4
+
+                        Total Node Count : 34
+                           Input Node(s)   (H*W*C)
+             block1_conv1_convolution(0) : 256*512*3
+
+                          Output Node(s)   (H*W*C)
+                 conv2d_9_convolution(0) : 256*512*4
+
+
+
+
