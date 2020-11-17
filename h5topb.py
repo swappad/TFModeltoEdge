@@ -3,10 +3,10 @@ import cv2
 import os
 import tensorflow as tf
 from unet import unet
-import keras
+import keras as keras
 
 
-# tf.compat.v1.enable_eager_execution(config=None, device_policy=None, execution_mode=None)
+#tf.compat.v1.enable_eager_execution(config=None, device_policy=None, execution_mode=None)
 
 parser = argparse.ArgumentParser(description='convert unet Model with h5 encoded weights to pb')
 parser.add_argument("--weights", help="path to h5 encoded weights")
@@ -35,19 +35,18 @@ def freeze_session(session, keep_var_names=None, output_names=None, clear_device
         if clear_devices:
             for node in input_graph_def.node:
                 node.device = ""
+#        input_graph_def = tf.compat.v1.graph_util.remove_training_nodes(input_graph_def, protected_nodes=None)
         frozen_graph = tf.compat.v1.graph_util.convert_variables_to_constants(
                 session, input_graph_def, output_names, freeze_var_names)
-#        frozen_graph = tf.compat.v1.graph_util.remove_training_nodes(frozen_graph, protected_nodes=None)
     return frozen_graph
 
 
 keras.backend.clear_session()
+keras.backend.set_learning_phase(0)
 with keras.backend.get_session() as sess:
-    keras.backend.set_learning_phase(0)
 
     model = unet(input_shape=(256, 512, 3), num_classes=4, lr_init=1e-3, lr_decay=5e-4)
     model.load_weights(args.weights)
-
     directory = './trained_models/'
     filename = '1210_unet'
 
@@ -57,23 +56,26 @@ with keras.backend.get_session() as sess:
 
     # save frozen subset graph for acceleration
     output_graph = os.path.splitext(args.weights)[0] #+ ".pb"
-    output_names= ['conv2d_9/BiasAdd']
+    #output_names= ['conv2d_13/BiasAdd']
 
     input_names=[out.op.name for out in model.inputs]
-    #output_names=[out.op.name for out in model.outputs]
+    print(input_names)
+    output_names=[out.op.name for out in model.outputs]
     print('input  node is{}'.format(input_names))
     print('output node is{}'.format(output_names))
 
 
     saver = tf.train.Saver()
-#    saver = tf.compat.v1.train.Saver()
     graph_def = sess.graph.as_graph_def()
+    #for node in graph_def.node:
+    #    print(node)
     
     #frozen_graph = freeze_session(session=sess, output_names=output_names)
 
     save_path = saver.save(sess, os.path.join(output_graph, "float_model.ckpt"))
 
     tf.train.write_graph(graph_def, output_graph, "infer_graph.pb", as_text=False)
+
 
 
     #    print([node.op.name for node in model.outputs])

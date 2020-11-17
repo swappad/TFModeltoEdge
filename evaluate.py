@@ -10,7 +10,7 @@ import cv2
 import tensorflow.contrib.decent_q
 from tensorflow.python.platform import gfile
 
-calib_img_path = "./dataset/leftImg8bit_trainvaltest/leftImg8bit/train"
+calib_img_path = "./dataset/leftImg8bit/train"
 calib_batch_size = 1
 
 def result_map_to_img(res_map):
@@ -43,13 +43,13 @@ def graph_eval(input_graph_def, input_node, output_node):
     images = []
     for index in range(0, calib_batch_size):
       #print("Path: " + paths[(iter * calib_batch_size + index) % len(paths)])
-      img = cv2.imread(paths[(18 * calib_batch_size + index) % len(paths)], 1)
+      image = cv2.imread(paths[(18 * calib_batch_size + index) % len(paths)], 1)
       try:
-          img = cv2.resize(img,(512, 256))
-          img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+          image = cv2.resize(image, (512, 256))
+          img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
           img = img / 127.5 - 1
           images.append(img)
-          #cv2.imwrite('input_eval_img.png', img)
+          cv2.imwrite('input_eval_img.png', image)
     #            cv2.imshow('img',img)
       except cv2.error as e:
           print('Invalid frame!')
@@ -76,7 +76,7 @@ def graph_eval(input_graph_def, input_node, output_node):
         y_pred = sess.run(y, feed_dict)
         print(y_pred.shape)
         print(y_pred.dtype)
-        y_out = np.reshape(y_pred.astype(np.uint8), (256, 512, 4))
+        y_out = np.reshape(y_pred.astype(np.float32), (256, 512, 4))
         print(y_out.shape)
         print(y_pred)
         image = result_map_to_img(y_pred)
@@ -103,7 +103,7 @@ if __name__ ==  "__main__":
                         default='input_1',
                         help='input node.')
     parser.add_argument('--output_node', type=str,
-                        default='conv2d_9/BiasAdd',
+                        default='conv2d_13/BiasAdd',
                         help='output node.')
     parser.add_argument('--class_num', type=int,
                         default=4,

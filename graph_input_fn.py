@@ -5,9 +5,9 @@ import os.path
 
 from tensorflow.keras.preprocessing.image import img_to_array
 
-calib_img_path = "./dataset/leftImg8bit_trainvaltest/leftImg8bit/train"
+calib_img_path = "./dataset/leftImg8bit/train"
 
-calib_batch_size = 1
+calib_batch_size = 15
 
 def calib_input(iter):
     
@@ -23,6 +23,8 @@ def calib_input(iter):
         img = cv2.imread(paths[(iter * calib_batch_size + index) % len(paths)], 1)
         try:
             img = cv2.resize(img,(512, 256))
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            img = img.astype(np.float32) / 127.5 - 1
             images.append(img)
 #            cv2.imshow('img',img)
         except cv2.error as e:
