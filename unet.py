@@ -1,5 +1,5 @@
 from keras.models import Model
-from keras.layers import Input, concatenate, Conv2D, MaxPooling2D, Conv2DTranspose, Activation
+from keras.layers import Input, Concatenate, Conv2D, MaxPooling2D, UpSampling2D, Activation
 from keras.layers import BatchNormalization
 from keras.optimizers import Adam
 from keras import backend as K
@@ -85,11 +85,13 @@ def unet(num_classes, input_shape, lr_init, lr_decay, vgg_weight_path=None):
         vgg16.load_weights(vgg_weight_path, by_name=True)
 
     # UP 1
-    x = Conv2DTranspose(512, (2, 2), strides=(2, 2), padding='same')(x)
-    x = BatchNormalization()(x)
-    x = Activation('relu')(x)
+    x = UpSampling2D(size=(2, 2),data_format="channels_last")(x)
+    #x = Conv2DTranspose(512, (2, 2), strides=(2, 2), padding='same')(x)
+    x  = Conv2D(512, kernel_size=2, data_format="channels_last", activation="relu", padding="same")(x)
+    #x = BatchNormalization()(x)
+    #x = Activation('relu')(x)
 
-    x = concatenate([x, block_4_out])
+    x = Concatenate(axis=3)([x, block_4_out])
     x = Conv2D(512, (3, 3), padding='same')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
@@ -99,11 +101,13 @@ def unet(num_classes, input_shape, lr_init, lr_decay, vgg_weight_path=None):
     x = Activation('relu')(x)
 
     # UP 2
-    x = Conv2DTranspose(256, (2, 2), strides=(2, 2), padding='same')(x)
-    x = BatchNormalization()(x)
-    x = Activation('relu')(x)
+    x = UpSampling2D(size=(2, 2),data_format="channels_last")(x)
+    #x = Conv2DTranspose(256, (2, 2), strides=(2, 2), padding='same')(x)
+    x  = Conv2D(256, kernel_size=2, data_format="channels_last", activation="relu", padding="same")(x)
+    #x = BatchNormalization()(x)
+    #x = Activation('relu')(x)
 
-    x = concatenate([x, block_3_out])
+    x = Concatenate(axis=3)([x, block_3_out])
     x = Conv2D(256, (3, 3), padding='same')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
@@ -113,11 +117,13 @@ def unet(num_classes, input_shape, lr_init, lr_decay, vgg_weight_path=None):
     x = Activation('relu')(x)
 
     # UP 3
-    x = Conv2DTranspose(128, (2, 2), strides=(2, 2), padding='same')(x)
-    x = BatchNormalization()(x)
-    x = Activation('relu')(x)
+    x = UpSampling2D(size=(2, 2),data_format="channels_last")(x)
+    #x = Conv2DTranspose(128, (2, 2), strides=(2, 2), padding='same')(x)
+    x  = Conv2D(128, kernel_size=2, data_format="channels_last", activation="relu", padding="same")(x)
+    #x = BatchNormalization()(x)
+    #x = Activation('relu')(x)
 
-    x = concatenate([x, block_2_out])
+    x = Concatenate(axis=3)([x, block_2_out])
     x = Conv2D(128, (3, 3), padding='same')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
@@ -127,11 +133,13 @@ def unet(num_classes, input_shape, lr_init, lr_decay, vgg_weight_path=None):
     x = Activation('relu')(x)
 
     # UP 4
-    x = Conv2DTranspose(64, (2, 2), strides=(2, 2), padding='same')(x)
-    x = BatchNormalization()(x)
-    x = Activation('relu')(x)
+    x = UpSampling2D(size=(2, 2),data_format="channels_last")(x)
+    #x = Conv2DTranspose(64, kernel_size=(2, 2), strides=(2, 2), padding='same', data_format="channels_last")(x)
+    x  = Conv2D(64, kernel_size=2, data_format="channels_last", activation="relu", padding="same")(x)
+    #x = BatchNormalization()(x)
+    #x = Activation('relu')(x)
 
-    x = concatenate([x, block_1_out])
+    x = Concatenate(axis=3)([x, block_1_out])
     x = Conv2D(64, (3, 3), padding='same')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
@@ -144,7 +152,6 @@ def unet(num_classes, input_shape, lr_init, lr_decay, vgg_weight_path=None):
     x = Conv2D(num_classes, (3, 3), activation='softmax', padding='same')(x)
 
     model = Model(img_input, x)
-#    model.trainable=False
     model.compile(optimizer=Adam(lr=lr_init, decay=lr_decay),
                   loss='categorical_crossentropy',
                   metrics=[dice_coef])
