@@ -29,6 +29,26 @@ This repo contains all files for compilation and deployment.
 `compile.sh` -> Ultra96.json can be retrieved through DPU-PYNQ compilation, but must point to an existing Ultra96.dcf file
 
 
+## Troubleshooting
+### Freezing fails:
+* `IndexError: list index out of range` 
+
+	Make sure the docker image is modified such that conda has correct `keras==2.2.4` package installed:
+	```
+	./docker_run.sh xilinx/vitis-ai-cpu:latest
+	sudo su
+	conda activate vitis-ai-tensorflow
+	conda install keras==2.2.4  # compatible with TF 1.15
+	conda deactivate
+	exit
+	conda activate vitis-ai-tensorflow
+	```
+	Stage your modifications for the next docker restart:
+	```
+	sudo docker commit -m "<message>" <image_id> xilinx/vitis-ai-cpu:latest
+	```
+
+
 
 
 

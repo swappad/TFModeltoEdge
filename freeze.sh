@@ -1,4 +1,4 @@
-MODEL_PATH=./trained_models/unet_model
+MODEL_PATH=./trained_models/unet_model_next
 freeze_graph \
 	--input_graph 		${MODEL_PATH}/infer_graph.pb \
 	--input_checkpoint 	${MODEL_PATH}/float_model.ckpt \

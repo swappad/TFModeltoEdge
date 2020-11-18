@@ -10,7 +10,7 @@ import cv2
 import tensorflow.contrib.decent_q
 from tensorflow.python.platform import gfile
 
-calib_img_path = "./dataset/leftImg8bit/train"
+calib_img_path = "./dataset/leftImg8bit_trainvaltest/leftImg8bit/train/"
 calib_batch_size = 1
 
 def result_map_to_img(res_map):
@@ -43,12 +43,12 @@ def graph_eval(input_graph_def, input_node, output_node):
     images = []
     for index in range(0, calib_batch_size):
       #print("Path: " + paths[(iter * calib_batch_size + index) % len(paths)])
-      image = cv2.imread(paths[(18 * calib_batch_size + index) % len(paths)], 1)
+      image = cv2.imread(paths[(100 * calib_batch_size + index) % len(paths)], 1)
       try:
           image = cv2.resize(image, (512, 256))
           img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
           img = img / 127.5 - 1
-          images.append(img)
+          images.append(img.astype(np.float32))
           cv2.imwrite('input_eval_img.png', image)
     #            cv2.imshow('img',img)
       except cv2.error as e:
@@ -79,9 +79,9 @@ def graph_eval(input_graph_def, input_node, output_node):
         y_out = np.reshape(y_pred.astype(np.float32), (256, 512, 4))
         print(y_out.shape)
         print(y_pred)
-        image = result_map_to_img(y_pred)
+        #image = result_map_to_img(y_pred)
         #image = result_map_to_img(y_out.astype(np.uint8))
-        #image = result_map_to_img(y_pred.astype(np.uint8))
+        image = result_map_to_img(y_pred.astype(np.int8))
         cv2.imwrite('eval_img.png', image)
 
 

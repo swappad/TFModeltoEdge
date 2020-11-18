@@ -5,9 +5,9 @@ import os.path
 
 from tensorflow.keras.preprocessing.image import img_to_array
 
-calib_img_path = "./dataset/leftImg8bit/train"
+calib_img_path = "./dataset/leftImg8bit_trainvaltest/leftImg8bit/train"
 
-calib_batch_size = 15
+calib_batch_size = 10
 
 def calib_input(iter):
     
