@@ -1,4 +1,4 @@
-MODEL_PATH=./trained_models/unet_model_next_epoch17
+MODEL_PATH=./trained_models/unet_model_next
 FROZEN_GRAPH=${MODEL_PATH}/frozen_graph.pb
 OPTIMIZED_GRAPH=${MODEL_PATH}/optimized_graph.pb
 INFER_GRAPH=${MODEL_PATH}/infer_graph.pb
