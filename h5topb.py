@@ -2,7 +2,7 @@ import argparse
 import cv2
 import os
 import tensorflow as tf
-from unet import unet
+from unet_optimized import unet
 import keras as keras
 
 
@@ -56,18 +56,18 @@ with keras.backend.get_session() as sess:
 
     # save frozen subset graph for acceleration
     output_graph = os.path.splitext(args.weights)[0] #+ ".pb"
-    #output_names= ['conv2d_13/BiasAdd']
+    output_names= ['separable_conv2d_13/BiasAdd']
 
     input_names=[out.op.name for out in model.inputs]
     print(input_names)
-    output_names=[out.op.name for out in model.outputs]
+    # output_names=[out.op.name for out in model.outputs]
     print('input  node is{}'.format(input_names))
     print('output node is{}'.format(output_names))
 
 
     saver = tf.train.Saver()
     graph_def = sess.graph.as_graph_def()
-    #for node in graph_def.node:
+    # for node in graph_def.node:
     #    print(node)
     
     #frozen_graph = freeze_session(session=sess, output_names=output_names)
