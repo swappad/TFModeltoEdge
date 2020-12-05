@@ -7,10 +7,7 @@ import tensorflow as tf
 import numpy as np
 import cv2
 
-import tensorflow.contrib.decent_q
-from tensorflow.python.platform import gfile
-
-calib_img_path = "./dataset/leftImg8bit_trainvaltest/leftImg8bit/train/"
+calib_img_path = "./dataset/leftImg8bit/train"
 calib_batch_size = 1
 
 def result_map_to_img(res_map):
@@ -56,7 +53,7 @@ def graph_eval(input_graph_def, input_node, output_node):
           print(e)
 
 
-
+    init_g = tf.initialize_all_variables()
     with tf.Session() as sess:
         ## import and run graph
         tf.import_graph_def(input_graph_def, name = '')
@@ -70,7 +67,8 @@ def graph_eval(input_graph_def, input_node, output_node):
         # get output tensors
         y = tf.get_default_graph().get_tensor_by_name(output_node+':0')
 
-        sess.run(tf.initializers.global_variables())
+
+        sess.run(init_g)
 
         feed_dict ={x: images}
         y_pred = sess.run(y, feed_dict)
