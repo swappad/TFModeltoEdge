@@ -29,7 +29,7 @@ shape_dict = {"input_1": (1, 256, 512, 3)} # channels last
 mod, params = relay.frontend.from_keras(model_keras, shape_dict, layout='NHWC')
 
 tvm_target = 'llvm'
-target = 'DPUCZDX8G-ultra96'
+target = 'DPUCZDX8L'
 
 #mod["main"] = bind_params_by_name(mod["main"], params)
 #mod = annotation(mod, params, target)
@@ -47,6 +47,15 @@ target = 'DPUCZDX8G-ultra96'
 TVM_OUTPUT_DIR = "./"
 export_rt_mod_file = os.path.join(TVM_OUTPUT_DIR, "vitis_ai.rtmod")
 
+print("transform to NCHW")
+desired_layouts = {'nn.conv2d': ['NCHW', 'default']}
+
+seq = tvm.transform.Sequential([relay.transform.RemoveUnusedFunctions(),
+                                relay.transform.ConvertLayout(desired_layouts)])
+with tvm.transform.PassContext(opt_level=3):
+    mod = seq(mod)
+
+print("build first time")
 
 with tvm.transform.PassContext(opt_level=3, config={'relay.ext.vitis_ai.options.target': target, 
     'relay.ext.vitis_ai.options.export_runtime_module': export_rt_mod_file}):
@@ -57,9 +66,9 @@ with tvm.transform.PassContext(opt_level=3, config={'relay.ext.vitis_ai.options.
 module = graph_runtime.GraphModule(lib["default"](tvm.cpu()))
 
 print("start quantization")
-os.environ['PX_QUANT_SIZE'] = "128"
+os.environ['PX_QUANT_SIZE'] = "1"
 data = data_generator('./data.h5', 1, 'val')
-for i in range(128):
+for i in range(1):
     print("iteration", i)
     module.set_input("input_1", next(data)[0])
     module.run()
@@ -87,7 +96,7 @@ print("export dpu lib")
 lib_arm.export_library('tvm_dpu_arm.so', **lib_kwargs)
 
 with open(os.path.join(TVM_OUTPUT_DIR,"tvm_dpu_arm.json"),"w") as f:
-    f.write(graph)
+    f.write(graph_json)
 
 with open(os.path.join(TVM_OUTPUT_DIR,"tvm_dpu_arm.params"), "wb") as f:
     f.write(relay.save_param_dict(params))
