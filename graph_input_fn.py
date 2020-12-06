@@ -5,11 +5,13 @@ import os.path
 
 from tensorflow.keras.preprocessing.image import img_to_array
 
-calib_img_path = "./dataset/leftImg8bit/"
+calib_img_path = "./dataset/leftImg8bit_trainvaltest/leftImg8bit/val/lindau/"
 
-calib_batch_size = 10
+calib_batch_size = 1
 
-def calib_input(iter):
+input_node_name="input_1"
+
+def input_fn(iter):
     
     paths = []
     for (path, dirname, files) in sorted(os.walk(calib_img_path)):
@@ -31,7 +33,7 @@ def calib_input(iter):
             print('Invalid frame!')
             print(e)
 
-    return {"input_1": images}
+    return {input_node_name: images}
 
 def main():
     calib_input()
