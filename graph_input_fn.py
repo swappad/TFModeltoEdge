@@ -7,7 +7,7 @@ from tensorflow.keras.preprocessing.image import img_to_array
 
 calib_img_path = "./dataset/leftImg8bit_trainvaltest/leftImg8bit/val/lindau/"
 
-calib_batch_size = 1
+calib_batch_size = 2
 
 input_node_name="input_1"
 

@@ -1,7 +1,7 @@
-MODEL_PATH=./trained_models/unet_model_optimized_2
+MODEL_PATH=./trained_models/unet_model_next
 FROZEN_GRAPH=${MODEL_PATH}/frozen_graph.pb
 INPUT_NODES="input_1"
-OUTPUT_NODES="separable_conv2d_24/BiasAdd"
+OUTPUT_NODES="conv2d_13/BiasAdd"
 OUTPUT_DIR="./quantize_result"
 
 
@@ -14,8 +14,8 @@ vai_q_tensorflow quantize \
 	--method 1 \
 	--weight_bit 8 \
 	--activation_bit 8 \
-	--calib_iter 2\
+	--calib_iter 5\
 	--simulate_dpu 1 \
 	--output_dir ${OUTPUT_DIR} \
-	--dump_float 1
+	--dump_float 0
 
