@@ -34,11 +34,6 @@ def eval_input_fn():
 #  
     return data
 
-#    return tf.compat.v1.estimator.inputs.numpy_input_fn(
-#            x={"x": x},
-#            y=tf.squeeze(y,0),
-#            num_epochs=1,
-#            shuffle=False)
 
 
 
