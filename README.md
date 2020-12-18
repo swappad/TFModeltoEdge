@@ -1,5 +1,6 @@
 # TF Keras to Xilinx Zynq (Ultra96v2) design flow
 This repo contains all files for compilation and deployment.
+(Note: check out [this project](https://www.hackster.io/luca-krueger2/unet-semantic-segmentation-adas-on-avnet-ultra96-v2-ff33e8) for more detailed explanation.)
 
 ## List of files:
 -----------
